@@ -51,7 +51,52 @@ var education = {
             date: "2016",
             url: "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001",
         }]
-        //display: function
+        display: function() {
+			var lines = [];
+			var temp = [] ; 
+			var schoolsize, onlinesize, temp2, thisschool, output; 
+			schoolsize = education.schools.length; 
+			onlinesize = education.onlineCourses.length;
+			for ( var i =0 ; i < schoolsize; ++i){
+				temp = [] ; 
+				temp2 = "" 
+				for (i in education.schools[i].majors) temp2 = temp2 + i +", " ; 
+				temp2 = temp2.slice(0,-2); 
+				temp[0] = HTMLschoolName.replace("%data%",education.schools[i].name); 
+				temp[1] = HTMLschoolDegree.replace("%data%", education.schools[i].degree) ; 
+				temp[2] = HTMLschoolDates.replace("%data%", education.schools[i].dates) ;
+				temp[3] = HTMLschoolLocation.replace("%data%", education.schools[i].location; 
+				temp[4] = HTMLschoolMajor.replace("%data%", temp2) ; 
+				thisschool = "" 
+				for ( i in temp ){
+					thisschool = thisschool + i + "\n";
+					}
+				lines[i] = HTMLschoolStart.replace("%data%",thisschool) ; 
+				/*HTMLschoolName = HTMLschoolName.replace("%data%", '<a href="#">%data%';
+				HTMLschoolDegree = HTMLschoolDegree.replace("%data%", ' -- %data%</a>';
+				HTMLschoolDates = HTMLschoolDates.replace("%data%", '<div class="date-text">%data%</div>'; HTMLschoolLocation = HTMLschoolLocation.replace("%data%", '<div class="location-text">%data%</div>'; HTMLschoolMajor = HTMLschoolMajor.replace("%data%", '<em><br>Major: %data%</em>';*/
+			}
+			lines[schoolsize] = HTMLonlineClasses; 
+			for(var i = schoolsize ; i < schoolsize + onlinesize ; ++i){
+				temp = [] ;
+				temp[0] = HTMLonlineTitle.replace("%data%", education.onlineCourses[i - schoolsize].title) ; 
+				temp[1] = HTMLonlineSchool.replace("%data%", education.onlineCourses[i - schoolsize].school) ;
+				temp[2] = HTMLonlineDates.replace("%data%", education.onlineCourses[i - schoolsize].date); 
+				temp[3] = HTMLonlineURL.replace("%data%", education.onlineCourses[i - schoolsize].url) ; 
+				thisschool = "" 
+								for ( i in temp ){
+					thisschool = thisschool + i + "\n";
+					}
+					lines[i+1] = thisschool ; 
+			}
+			output = lines.join("\n") ; 
+			return output;
+            /*HTMLonlineClasses = HTMLonlineClasses.replace("%data%", '<h3>Online Classes</h3>';
+			HTMLonlineTitle = HTMLonlineTitle.replace("%data%", '<a href="#">%data%'; 
+			HTMLonlineSchool = HTMLonlineSchool.replace("%data%", ' - %data%</a>'; 
+			HTMLonlineDates = HTMLonlineDates.replace("%data%", '<div class="date-text">%data%</div>';
+			HTMLonlineURL = HTMLonlineURL.replace("%data%", '<br><a href="#">%data%</a>';*/
+		}
 }
 
 var work = {
