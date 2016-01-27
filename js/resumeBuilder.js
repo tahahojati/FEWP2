@@ -119,7 +119,26 @@ var work = {
             dates: "May 2014 - August 2014",
             description: "Tutored UH Manoa students in both mechanics and electricity and magnetism, and also conducted study sessions in both areas.",
         }]
-        //display: function
+        display: function(){
+			var lines = [] ;
+			var temp =[] ;
+			for(i in work.jobs){
+				temp = [] ;
+				temp[0] = HTMLworkEmployer.replace("%data%", i.employer) ; 
+				temp[1] = HTMLworkTitle.replace("%data%", i.title );
+				temp[2] = HTMLworkDates.replace("%data%", i.dates) ;
+				temp[3] = HTMLworkLocation.replace("%data%", i.location) ; 
+				temp[4] = HTMLworkDescription.replace("%data%", i.description) ;
+				lines.push(HTMLworkStart.replace("%data%" , temp.join("\n"))) ; 
+			}
+				/*HTMLworkStart
+				HTMLworkEmployer = HTMLworkEmployer.replace("%data%", '<a href="#">%data%';
+				HTMLworkTitle = HTMLworkTitle.replace("%data%", ' - %data%</a>'; 
+				HTMLworkDates = HTMLworkDates.replace("%data%", '<div class="date-text">%data%</div>';
+				HTMLworkLocation = HTMLworkLocation.replace("%data%", '<div class="location-text">%data%</div>'; 
+				HTMLworkDescription = HTMLworkDescription.replace("%data%", '<p><br>%data%</p>';*/
+			return lines.join("\n"); 
+		}
 }
 
 var projects = {
