@@ -17,23 +17,27 @@ var bio = {
         var lines = [];
         lines[0] = HTMLheaderName.replace("%data%", bio.name);
         lines[1] = HTMLheaderRole.replace("%data%", bio.role);
-        lines[2] = HTMLmobile.replace("%data%", bio.contacts.mobile);
-        lines[3] = HTMLemail.replace("%data%", bio.contacts.email);
-        lines[4] = HTMLgithub.replace("%data%", bio.contacts.github);
-        lines[5] = HTMLlocation.replace("%data%", bio.location);
-        lines[6] = HTMLbioPic.replace("%data%", bio.biopic);
-        lines[7] = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-        lines[8] = ""
+        lines[2] = HTMLlocation.replace("%data%", bio.location);
+        lines[3] = HTMLbioPic.replace("%data%", bio.biopic);
+        lines[4] = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+        lines[5] = "";
         for (var i in bio.skills) {
-            lines[8] = lines[8] + temp.replace("%data%", i) + "\n";
+            lines[5] = lines[5] + temp.replace("%data%", i) + "\n";
         }
-        lines[8] = HTMLskillsStart.replace("%data%", lines[8]);
+        lines[5] = HTMLskillsStart.replace("%data%", lines[5]);
         var output = "";
-        for (var i in lines) {
-            output = output + i + "\n";
+        for (var i = 0 ; i <= 5 ; ++i) {
+            output = output + lines[i] + "\n";
         }
         return output;
     }
+	printContacts: function(){
+		var lines = [];
+		lines[0] = HTMLmobile.replace("%data%", bio.contacts.mobile);
+        lines[1] = HTMLemail.replace("%data%", bio.contacts.email);
+        lines[2] = HTMLgithub.replace("%data%", bio.contacts.github);
+		return lines.join("\n"); 
+	}
 }
 
 var education = {
@@ -148,30 +152,34 @@ var projects = {
             description: "I am trying to build a 3D printer based on the well known reprap design.",
             images: ["http://reprap.org/mediawiki/images/5/5b/Builder.jpg"],
         }]
-        //display: function
+        display: function(){
+						var lines = [] ;
+			var temp =[] ;
+			for(i in projects.projects){
+				temp = [] ;
+				temp[0] = HTMLprojectTitle.replace("%data%", i.title) ; 
+				temp[1] = HTMLprojectDates.replace("%data%", i.dates );
+				temp[2] = HTMLprojectDescription.replace("%data%", i.description) ;
+				temp[3] = HTMLprojectImage.replace("%data%", i.images[0]) ; 
+				lines.push(HTMLprojectStart.replace("%data%" , temp.join("\n"))) ; 
+			}
+
+			return lines.join("\n"); 
+			
+			/*HTMLprojectStart = HTMLprojectStart.replace("%data%", '<div class="project-entry"></div>'; 
+			HTMLprojectTitle = HTMLprojectTitle.replace("%data%", '<a href="#">%data%</a>';
+			HTMLprojectDates = HTMLprojectDates.replace("%data%", '<div class="date-text">%data%</div>';
+			HTMLprojectDescription = HTMLprojectDescription.replace("%data%", '<p><br>%data%</p>'; 
+			HTMLprojectImage = HTMLprojectImage.replace("%data%", '<img src="%data%">';*/
+
+		}
 }
 
-/*HTMLheaderName = HTMLheaderName.replace("%data%", bio.name);
-HTMLheaderRole = HTMLheaderRole.replace("%data%", bio.role);
-//HTMLcontactGeneric = HTMLcontactGeneric.replace("%data%",'<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
-HTMLmobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
-HTMLemail = HTMLemail.replace("%data%", bio.contacts.email);
-//HTMLtwitter = HTMLtwitter.replace("%data%",'<li class="flex-item"><span class="orange-text">twitter</span><span class="white-text">%data%</span></li>';
-HTMLgithub = HTMLgithub.replace("%data%", bio.contacts.github);
-//HTMLblog = HTMLblog.replace("%data%",'<li class="flex-item"><span class="orange-text">blog</span><span class="white-text">%data%</span></li>';
-HTMLlocation = HTMLlocation.replace("%data%", bio.location);
+$("#header").prepend(bio.display()); 
+$("#topContacts").prepend(bio.printContacts());
+$("education").append(education.display()); 
+$("workExperience").append(work.display());
+$("projects").append(projects.display());
 
-HTMLbioPic = HTMLbioPic.replace("%data%", bio.biopic);
-HTMLwelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-var temp = HTMLskills;
-HTMLskills = "";
-for (i in bio.skills) {
-    HTMLskills = HTMLskills + temp.replace("%data%", i) + "\n";
-}
-HTMLworkStart = HTMLworkStart.replace("%data%", '<div class="work-entry"></div>'; HTMLworkEmployer = HTMLworkEmployer.replace("%data%", '<a href="#">%data%'; HTMLworkTitle = HTMLworkTitle.replace("%data%", ' - %data%</a>'; HTMLworkDates = HTMLworkDates.replace("%data%", '<div class="date-text">%data%</div>'; HTMLworkLocation = HTMLworkLocation.replace("%data%", '<div class="location-text">%data%</div>'; HTMLworkDescription = HTMLworkDescription.replace("%data%", '<p><br>%data%</p>';
 
-                            HTMLprojectStart = HTMLprojectStart.replace("%data%", '<div class="project-entry"></div>'; HTMLprojectTitle = HTMLprojectTitle.replace("%data%", '<a href="#">%data%</a>'; HTMLprojectDates = HTMLprojectDates.replace("%data%", '<div class="date-text">%data%</div>'; HTMLprojectDescription = HTMLprojectDescription.replace("%data%", '<p><br>%data%</p>'; HTMLprojectImage = HTMLprojectImage.replace("%data%", '<img src="%data%">';
 
-                                                HTMLschoolStart = HTMLschoolStart.replace("%data%", '<div class="education-entry"></div>'; HTMLschoolName = HTMLschoolName.replace("%data%", '<a href="#">%data%'; HTMLschoolDegree = HTMLschoolDegree.replace("%data%", ' -- %data%</a>'; HTMLschoolDates = HTMLschoolDates.replace("%data%", '<div class="date-text">%data%</div>'; HTMLschoolLocation = HTMLschoolLocation.replace("%data%", '<div class="location-text">%data%</div>'; HTMLschoolMajor = HTMLschoolMajor.replace("%data%", '<em><br>Major: %data%</em>';
-
-                                                                        HTMLonlineClasses = HTMLonlineClasses.replace("%data%", '<h3>Online Classes</h3>'; HTMLonlineTitle = HTMLonlineTitle.replace("%data%", '<a href="#">%data%'; HTMLonlineSchool = HTMLonlineSchool.replace("%data%", ' - %data%</a>'; HTMLonlineDates = HTMLonlineDates.replace("%data%", '<div class="date-text">%data%</div>'; HTMLonlineURL = HTMLonlineURL.replace("%data%", '<br><a href="#">%data%</a>';*/
