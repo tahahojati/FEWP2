@@ -15,22 +15,22 @@ var bio = {
     biopic: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAUfAAAAJGQ2ZjEwY2MwLWYwMDUtNDBlZS04ZTM5LWY3YzEwYWEzZWZmNA.jpg",
     display: function() {
         var lines = [];
+		var temp = []; 
         lines[0] = HTMLheaderName.replace("%data%", bio.name);
         lines[1] = HTMLheaderRole.replace("%data%", bio.role);
         lines[2] = HTMLlocation.replace("%data%", bio.location);
         lines[3] = HTMLbioPic.replace("%data%", bio.biopic);
         lines[4] = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-        lines[5] = "";
-        for (var i in bio.skills) {
-            lines[5] = lines[5] + temp.replace("%data%", i) + "\n";
-        }
-        lines[5] = HTMLskillsStart.replace("%data%", lines[5]);
+		for (var i =0; i < bio.skills.length; ++i){
+			temp.push(HTMLskills.replace("%data%", bio.skills[i]));
+		}
+        lines[5] = HTMLskillsStart.replace("%data%", temp.join("\n"));
         var output = "";
         for (var i = 0 ; i <= 5 ; ++i) {
             output = output + lines[i] + "\n";
         }
         return output;
-    }
+    },
 	printContacts: function(){
 		var lines = [];
 		lines[0] = HTMLmobile.replace("%data%", bio.contacts.mobile);
@@ -54,7 +54,7 @@ var education = {
             school: "Udacity",
             date: "2016",
             url: "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001",
-        }]
+        }],
         display: function() {
 			var lines = [];
 			var temp = [] ; 
@@ -69,7 +69,7 @@ var education = {
 				temp[0] = HTMLschoolName.replace("%data%",education.schools[i].name); 
 				temp[1] = HTMLschoolDegree.replace("%data%", education.schools[i].degree) ; 
 				temp[2] = HTMLschoolDates.replace("%data%", education.schools[i].dates) ;
-				temp[3] = HTMLschoolLocation.replace("%data%", education.schools[i].location; 
+				temp[3] = HTMLschoolLocation.replace("%data%", education.schools[i].location); 
 				temp[4] = HTMLschoolMajor.replace("%data%", temp2) ; 
 				thisschool = "" 
 				for ( i in temp ){
@@ -122,7 +122,7 @@ var work = {
             location: "Honolulu, HI",
             dates: "May 2014 - August 2014",
             description: "Tutored UH Manoa students in both mechanics and electricity and magnetism, and also conducted study sessions in both areas.",
-        }]
+        }],
         display: function(){
 			var lines = [] ;
 			var temp =[] ;
@@ -150,8 +150,8 @@ var projects = {
             title: "Constructing a 3D printer",
             dates: "In progress",
             description: "I am trying to build a 3D printer based on the well known reprap design.",
-            images: ["http://reprap.org/mediawiki/images/5/5b/Builder.jpg"],
-        }]
+            images: ["http://reprap.org/mediawiki/images/5/5b/Builder.jpg"]
+        }],
         display: function(){
 						var lines = [] ;
 			var temp =[] ;
@@ -160,7 +160,7 @@ var projects = {
 				temp[0] = HTMLprojectTitle.replace("%data%", i.title) ; 
 				temp[1] = HTMLprojectDates.replace("%data%", i.dates );
 				temp[2] = HTMLprojectDescription.replace("%data%", i.description) ;
-				temp[3] = HTMLprojectImage.replace("%data%", i.images[0]) ; 
+				//temp[3] = HTMLprojectImage.replace("%data%", i.images[0]) ; 
 				lines.push(HTMLprojectStart.replace("%data%" , temp.join("\n"))) ; 
 			}
 
@@ -177,9 +177,9 @@ var projects = {
 
 $("#header").prepend(bio.display()); 
 $("#topContacts").prepend(bio.printContacts());
-$("education").append(education.display()); 
-$("workExperience").append(work.display());
-$("projects").append(projects.display());
+$("#education").append(education.display()); 
+$("#workExperience").append(work.display());
+$("#projects").append(projects.display());
 
 
 
