@@ -4,7 +4,7 @@ var bio = {
     contacts: {
         mobile: "(808)232-8467",
         email: "taha@hawaii.edu",
-        github: "https://github.com/tahahojati",
+        github: "tahahojati",
     },
     location: "Honolulu, HI",
     welcomeMessage: "Physics graduate and experienced web developer.",
@@ -180,5 +180,5 @@ $("#topContacts").append(bio.display("contacts"));
 $("#education").append(education.display()); 
 $("#workExperience").append(work.display());
 $("#projects").append(projects_section.display());
-
+$("#footerContacts").append(bio.display("contacts"));
 
