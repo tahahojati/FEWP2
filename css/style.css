@@ -10,7 +10,7 @@ h4,
 h5,
 h6 {
   padding:0;
-  margin:0;
+  margin: 0 auto 0 0;
   font-family: "Roboto", sans-serif;
 }
 
@@ -144,7 +144,9 @@ a {
 .center-content {
   padding: 2.5% 5%;
 }
-
+.left-align-content{
+  padding: auto;
+}
 ul {
   list-style-type: none;
 }

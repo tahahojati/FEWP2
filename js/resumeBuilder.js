@@ -13,31 +13,40 @@ var bio = {
         "Fluent in Persian with an understanding of Spanish"
     ],
     biopic: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAUfAAAAJGQ2ZjEwY2MwLWYwMDUtNDBlZS04ZTM5LWY3YzEwYWEzZWZmNA.jpg",
-    display: function() {
-        var lines = [];
-		var temp = []; 
-        lines[0] = HTMLheaderName.replace("%data%", bio.name);
-        lines[1] = HTMLheaderRole.replace("%data%", bio.role);
-        lines[2] = HTMLlocation.replace("%data%", bio.location);
-        lines[3] = HTMLbioPic.replace("%data%", bio.biopic);
-        lines[4] = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-		for (var i =0; i < bio.skills.length; ++i){
-			temp.push(HTMLskills.replace("%data%", bio.skills[i]));
-		}
-        lines[5] = HTMLskillsStart.replace("%data%", temp.join("\n"));
-        var output = "";
-        for (var i = 0 ; i <= 5 ; ++i) {
-            output = output + lines[i] + "\n";
-        }
-        return output;
-    },
-	printContacts: function(){
+    display: function(x) {
 		var lines = [];
+		var temp = []; 
+		if (x==="rest"){
+			lines = [];
+			temp = []; 
+			lines.push( HTMLbioPic.replace("%data%", bio.biopic));
+			lines.push( HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+			for (var i =0; i < bio.skills.length; ++i){
+				temp.push(HTMLskills.replace("%data%", bio.skills[i]));
+			}
+			lines.push(HTMLskillsStart.replace("%data%", temp.join("\n")));
+			var output = "";
+			for (i in lines) {
+				output = output + lines[i] + "\n";
+			}
+			return output;
+		}
+		else if (x === "name"){
+			lines = [];
+			temp = []; 
+			lines.push( HTMLheaderName.replace("%data%", bio.name));
+			lines.push( HTMLheaderRole.replace("%data%", bio.role));
+		}
+		else if(x === "contacts"){
+			lines = [];
 		lines[0] = HTMLmobile.replace("%data%", bio.contacts.mobile);
         lines[1] = HTMLemail.replace("%data%", bio.contacts.email);
         lines[2] = HTMLgithub.replace("%data%", bio.contacts.github);
+		lines.push(HTMLlocation.replace("%data%", bio.location));
+		}
+		console.log(lines[0]);
 		return lines.join("\n"); 
-	}
+    }
 }
 
 var education = {
@@ -165,8 +174,9 @@ var projects_section = {
 		}
 }
 
-$("#header").append(bio.display()); 
-$("#topContacts").prepend(bio.printContacts());
+$("#header").prepend(bio.display("name")); 
+$("#header").append(bio.display("rest")); 
+$("#topContacts").append(bio.display("contacts"));
 $("#education").append(education.display()); 
 $("#workExperience").append(work.display());
 $("#projects").append(projects_section.display());
