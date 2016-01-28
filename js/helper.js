@@ -26,7 +26,7 @@ var HTMLprojectStart = '<div class="project-entry">%data%</div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
 var HTMLprojectDescription = '<p><br>%data%</p>';
-var HTMLprojectImage = '<img src="%data%">';
+var HTMLprojectImage = '<img src="%data%" class="img-responsive">';
 
 var HTMLschoolStart = '<div class="education-entry"> %data% </div>';
 var HTMLschoolName = '<a href="#">%data%';
@@ -87,7 +87,7 @@ function initializeMap() {
   For the map to be displayed, the googleMap var must be
   appended to #mapDiv in resumeBuilder.js. 
   */
-  map = new google.maps.Map(document.querySelector('#map'), mapOptions);
+  mymap = new google.maps.Map(document.querySelector('#map'), mapOptions);
 
 
   /*
@@ -136,7 +136,7 @@ function initializeMap() {
 
     // marker is an object with additional data about the pin for a single location
     var marker = new google.maps.Marker({
-      map: map,
+      map: mymap,
       position: placeData.geometry.location,
       title: name
     });
@@ -157,9 +157,9 @@ function initializeMap() {
     // bounds.extend() takes in a map location object
     bounds.extend(new google.maps.LatLng(lat, lon));
     // fit the map to the new marker
-    map.fitBounds(bounds);
+    mymap.fitBounds(bounds);
     // center the map
-    map.setCenter(bounds.getCenter());
+    mymap.setCenter(bounds.getCenter());
   }
 
   /*
@@ -180,7 +180,7 @@ function initializeMap() {
 
     // creates a Google place search service object. PlacesService does the work of
     // actually searching for location data.
-    var service = new google.maps.places.PlacesService(map);
+    var service = new google.maps.places.PlacesService(mymap);
 
     // Iterates through the array of locations, creates a search object for each location
       locations.forEach(function(place){
@@ -212,11 +212,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
+window.addEventListener('resize', function(e) {
   //Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+  mymap.fitBounds(mapBounds);
+});

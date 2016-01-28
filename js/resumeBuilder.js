@@ -159,6 +159,7 @@ var projects_section = {
 				temp[0] = HTMLprojectTitle.replace("%data%", projects_section.projects[i].title) ; 
 				temp[1] = HTMLprojectDates.replace("%data%", projects_section.projects[i].dates );
 				temp[2] = HTMLprojectDescription.replace("%data%", projects_section.projects[i].description) ;
+				temp.push(HTMLprojectImage.replace("%data%",projects_section.projects[i].images[0] ));
 				//temp[3] = HTMLprojectImage.replace("%data%", projects[i].images[0]) ; 
 				lines.push(HTMLprojectStart.replace("%data%" , temp.join("\n"))) ; 
 			}
@@ -181,4 +182,5 @@ $("#education").append(education.display());
 $("#workExperience").append(work.display());
 $("#projects").append(projects_section.display());
 $("#footerContacts").append(bio.display("contacts"));
+$("#mapDiv").append(googleMap);
 
