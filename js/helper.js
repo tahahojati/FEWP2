@@ -59,7 +59,7 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+    logClicks(loc.pageX,loc.pageY);
 });
 
 
@@ -69,7 +69,7 @@ This is the fun part. Here's where we generate the custom Google Map for the web
 See the documentation below for more details.
 https://developers.google.com/maps/documentation/javascript/reference
 */
-var map;    // declares a global map variable
+var mymap;    // declares a global map variable
 
 
 /*
@@ -100,7 +100,7 @@ function initializeMap() {
     var locations = [];
 
     // adds the single location property from bio to the locations array
-    locations.push(bio.contacts.location);
+    locations.push(bio.location);
 
     // iterates through school locations and appends each location to
     // the locations array. Note that forEach is used for array iteration
@@ -117,7 +117,6 @@ function initializeMap() {
     work.jobs.forEach(function(job){
       locations.push(job.location);
     });
-
     return locations;
   }
 
