@@ -63,19 +63,13 @@ var education = {
 			onlinesize = education.onlineCourses.length;
 			for ( var i =0 ; i < schoolsize; ++i){
 				temp = [] ; 
-				temp2 = "" 
-				for (i in education.schools[i].majors) temp2 = temp2 + i +", " ; 
-				temp2 = temp2.slice(0,-2); 
+				temp2 = education.schools[i].majors.join(", ");
 				temp[0] = HTMLschoolName.replace("%data%",education.schools[i].name); 
 				temp[1] = HTMLschoolDegree.replace("%data%", education.schools[i].degree) ; 
 				temp[2] = HTMLschoolDates.replace("%data%", education.schools[i].dates) ;
 				temp[3] = HTMLschoolLocation.replace("%data%", education.schools[i].location); 
 				temp[4] = HTMLschoolMajor.replace("%data%", temp2) ; 
-				thisschool = "" 
-				for ( i in temp ){
-					thisschool = thisschool + i + "\n";
-					}
-				lines[i] = HTMLschoolStart.replace("%data%",thisschool) ; 
+				lines[i] = HTMLschoolStart.replace("%data%",temp.join("\n")) ; 
 				/*HTMLschoolName = HTMLschoolName.replace("%data%", '<a href="#">%data%';
 				HTMLschoolDegree = HTMLschoolDegree.replace("%data%", ' -- %data%</a>';
 				HTMLschoolDates = HTMLschoolDates.replace("%data%", '<div class="date-text">%data%</div>'; HTMLschoolLocation = HTMLschoolLocation.replace("%data%", '<div class="location-text">%data%</div>'; HTMLschoolMajor = HTMLschoolMajor.replace("%data%", '<em><br>Major: %data%</em>';*/
@@ -87,11 +81,7 @@ var education = {
 				temp[1] = HTMLonlineSchool.replace("%data%", education.onlineCourses[i - schoolsize].school) ;
 				temp[2] = HTMLonlineDates.replace("%data%", education.onlineCourses[i - schoolsize].date); 
 				temp[3] = HTMLonlineURL.replace("%data%", education.onlineCourses[i - schoolsize].url) ; 
-				thisschool = "" 
-								for ( i in temp ){
-					thisschool = thisschool + i + "\n";
-					}
-					lines[i+1] = thisschool ; 
+				lines[i+1] = HTMLschoolStart.replace("%data%",temp.join("\n")) ; 
 			}
 			output = lines.join("\n") ; 
 			return output;
@@ -128,11 +118,11 @@ var work = {
 			var temp =[] ;
 			for(i in work.jobs){
 				temp = [] ;
-				temp[0] = HTMLworkEmployer.replace("%data%", i.employer) ; 
-				temp[1] = HTMLworkTitle.replace("%data%", i.title );
-				temp[2] = HTMLworkDates.replace("%data%", i.dates) ;
-				temp[3] = HTMLworkLocation.replace("%data%", i.location) ; 
-				temp[4] = HTMLworkDescription.replace("%data%", i.description) ;
+				temp[0] = HTMLworkEmployer.replace("%data%", work.jobs[i].employer) ; 
+				temp[1] = HTMLworkTitle.replace("%data%", work.jobs[i].title );
+				temp[2] = HTMLworkDates.replace("%data%", work.jobs[i].dates) ;
+				temp[3] = HTMLworkLocation.replace("%data%", work.jobs[i].location) ; 
+				temp[4] = HTMLworkDescription.replace("%data%", work.jobs[i].description) ;
 				lines.push(HTMLworkStart.replace("%data%" , temp.join("\n"))) ; 
 			}
 				/*HTMLworkStart
@@ -145,7 +135,7 @@ var work = {
 		}
 }
 
-var projects = {
+var projects_section = {
     projects: [{
             title: "Constructing a 3D printer",
             dates: "In progress",
@@ -153,14 +143,14 @@ var projects = {
             images: ["http://reprap.org/mediawiki/images/5/5b/Builder.jpg"]
         }],
         display: function(){
-						var lines = [] ;
+			var lines = [] ;
 			var temp =[] ;
-			for(i in projects.projects){
+			for(i in projects_section.projects){ 
 				temp = [] ;
-				temp[0] = HTMLprojectTitle.replace("%data%", i.title) ; 
-				temp[1] = HTMLprojectDates.replace("%data%", i.dates );
-				temp[2] = HTMLprojectDescription.replace("%data%", i.description) ;
-				//temp[3] = HTMLprojectImage.replace("%data%", i.images[0]) ; 
+				temp[0] = HTMLprojectTitle.replace("%data%", projects_section.projects[i].title) ; 
+				temp[1] = HTMLprojectDates.replace("%data%", projects_section.projects[i].dates );
+				temp[2] = HTMLprojectDescription.replace("%data%", projects_section.projects[i].description) ;
+				//temp[3] = HTMLprojectImage.replace("%data%", projects[i].images[0]) ; 
 				lines.push(HTMLprojectStart.replace("%data%" , temp.join("\n"))) ; 
 			}
 
@@ -175,11 +165,10 @@ var projects = {
 		}
 }
 
-$("#header").prepend(bio.display()); 
+$("#header").append(bio.display()); 
 $("#topContacts").prepend(bio.printContacts());
 $("#education").append(education.display()); 
 $("#workExperience").append(work.display());
-$("#projects").append(projects.display());
-
+$("#projects").append(projects_section.display());
 
 
