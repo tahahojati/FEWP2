@@ -1,12 +1,13 @@
 var bio = {
     name: "Taha Pourjalali",
-    role: "Frond-end web developer",
+    role: "Front-end web developer",
     contacts: {
         mobile: "(808)232-8467",
         email: "taha@hawaii.edu",
         github: "tahahojati",
-    },
-    location: "Honolulu, HI",
+		twitter: "TahaHojati",
+		location: "Honolulu, HI"
+	},
     welcomeMessage: "Physics graduate and experienced web developer.",
     skills: ["Computer programming: C/C++, Java, Perl, Python",
         "Web design: PHP, Javascript, HTML, CSS", "Knowledgable in undergraduate math and physics",
@@ -37,13 +38,23 @@ var bio = {
             lines.push(HTMLheaderRole.replace("%data%", bio.role));
         } else if (x === "contacts") {
             lines = [];
-            lines[0] = HTMLmobile.replace("%data%", bio.contacts.mobile);
-            lines[1] = HTMLemail.replace("%data%", bio.contacts.email);
-            lines[2] = HTMLgithub.replace("%data%", bio.contacts.github);
-            lines.push(HTMLlocation.replace("%data%", bio.location));
+            lines.push( HTMLmobile.replace("%data%", bio.contacts.mobile));
+            lines.push(HTMLemail.replace("%data%", bio.contacts.email));
+            lines.push( HTMLgithub.replace("%data%", bio.contacts.github));
+			lines.push( HTMLtwitter.replace("%data%", bio.contacts.twitter));
+            lines.push(HTMLlocation.replace("%data%", bio.contacts.location));
         }
-        return lines.join("\n");
+        
+		else if (x===""){
+			$("#header").prepend(bio.display("name"));
+			$("#header").append(bio.display("rest"));
+			$("#topContacts").append(bio.display("contacts"));
+			$("#footerContacts").append(bio.display("contacts"));
+			return; 
+		}
+		return lines.join("\n");
     }
+
 };
 
 var education = {
@@ -90,7 +101,7 @@ var education = {
             lines[i + 1] = HTMLschoolStart.replace("%data%", temp.join("\n"));
         }
         output = lines.join("\n");
-        return output;
+		$("#education").append(output);
         /*HTMLonlineClasses = HTMLonlineClasses.replace("%data%", '<h3>Online Classes</h3>';
 			HTMLonlineTitle = HTMLonlineTitle.replace("%data%", '<a href="#">%data%'; 
 			HTMLonlineSchool = HTMLonlineSchool.replace("%data%", ' - %data%</a>'; 
@@ -137,11 +148,11 @@ var work = {
         HTMLworkDates = HTMLworkDates.replace("%data%", '<div class="date-text">%data%</div>';
         HTMLworkLocation = HTMLworkLocation.replace("%data%", '<div class="location-text">%data%</div>'; 
         HTMLworkDescription = HTMLworkDescription.replace("%data%", '<p><br>%data%</p>';*/
-        return lines.join("\n");
+        $("#workExperience").append(lines.join("\n"));
     }
 };
 
-var projects_section = {
+var projects = {
     projects: [{
         title: "Constructing a 3D printer",
         dates: "In progress",
@@ -151,32 +162,26 @@ var projects_section = {
     display: function() {
         var lines = [];
         var temp = [];
-        for (var i = 0; i < projects_section.projects.length; ++i) {
+        for (var i = 0; i < projects.projects.length; ++i) {
             temp = [];
-            temp[0] = HTMLprojectTitle.replace("%data%", projects_section.projects[i].title);
-            temp[1] = HTMLprojectDates.replace("%data%", projects_section.projects[i].dates);
-            temp[2] = HTMLprojectDescription.replace("%data%", projects_section.projects[i].description);
-            temp.push(HTMLprojectImage.replace("%data%", projects_section.projects[i].images[0]));
+            temp[0] = HTMLprojectTitle.replace("%data%", projects.projects[i].title);
+            temp[1] = HTMLprojectDates.replace("%data%", projects.projects[i].dates);
+            temp[2] = HTMLprojectDescription.replace("%data%", projects.projects[i].description);
+            temp.push(HTMLprojectImage.replace("%data%", projects.projects[i].images[0]));
             //temp[3] = HTMLprojectImage.replace("%data%", projects[i].images[0]) ; 
             lines.push(HTMLprojectStart.replace("%data%", temp.join("\n")));
         }
-
-        return lines.join("\n");
-
+		$("#projects").append(lines.join("\n"));
         /*HTMLprojectStart = HTMLprojectStart.replace("%data%", '<div class="project-entry"></div>'; 
         HTMLprojectTitle = HTMLprojectTitle.replace("%data%", '<a href="#">%data%</a>';
         HTMLprojectDates = HTMLprojectDates.replace("%data%", '<div class="date-text">%data%</div>';
         HTMLprojectDescription = HTMLprojectDescription.replace("%data%", '<p><br>%data%</p>'; 
         HTMLprojectImage = HTMLprojectImage.replace("%data%", '<img src="%data%">';*/
-
+		
     }
 };
-
-$("#header").prepend(bio.display("name"));
-$("#header").append(bio.display("rest"));
-$("#topContacts").append(bio.display("contacts"));
-$("#education").append(education.display());
-$("#workExperience").append(work.display());
-$("#projects").append(projects_section.display());
-$("#footerContacts").append(bio.display("contacts"));
+bio.display(""); 
+projects.display();
+education.display();
+work.display();
 $("#mapDiv").append(googleMap);
